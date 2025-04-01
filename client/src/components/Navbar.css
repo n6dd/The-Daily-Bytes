@@ -1,0 +1,164 @@
+/* =============================================================================
+  Navbar Styles
+============================================================================= */
+
+/* NOTE: Focus state for accessibility */
+.nav-link:focus,
+.login-button:focus,
+.theme-toggle-button:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+  Layout Containers
+============================================================================= */
+
+/* Navbar outer container */
+.navbar {
+  background-color: #6dc2ff; /* NOTE: Light blue background */
+  padding: 1.25rem 2rem;
+}
+
+/* Inner flex layout wrapper */
+.navbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+/* Site title */
+.nav-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #000;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+
+/* Navigation tabs (centered) */
+.nav-tabs {
+  display: flex;
+  gap: 1rem;
+  flex-grow: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Right-side action controls */
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* =============================================================================
+  Navigation Link Styles
+============================================================================= */
+
+.nav-link {
+  background-color: #4b5563; /* slate gray */
+  color: white;
+  padding: 0.75rem 1.4rem;
+  border-radius: 0.75rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* HOVER: Nav link interaction effect */
+.nav-link:hover {
+  background-color: #5f6b7a;
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+}
+
+/* =============================================================================
+  Theme Toggle (Light/Dark Mode)
+============================================================================= */
+
+.theme-toggle-wrapper {
+  position: relative;
+  display: flex;
+  background-color: #f1f5f9; /* slate-50 */
+  border: 1px solid #d1d5db; /* slate-200 */
+  border-radius: 9999px;
+  overflow: hidden;
+  padding: 2px;
+}
+
+.theme-toggle-button {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  color: #1f2937; /* slate-800 */
+  cursor: pointer;
+}
+
+.theme-toggle-button.selected {
+  color: white;
+}
+
+.theme-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(to right, #7c3aed, #6366f1); /* violet-indigo */
+  border-radius: 9999px;
+  z-index: 0;
+  transition: all 0.3s ease;
+}
+
+.theme-slider.left {
+  left: 0;
+}
+
+.theme-slider.right {
+  right: 0;
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+/* =============================================================================
+  Dark Theme Mode (Global)
+============================================================================= */
+
+body.dark {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+/* =============================================================================
+  Responsive Adjustments
+============================================================================= */
+
+@media (max-width: 640px) {
+  .nav-title {
+    font-size: 1.5rem;
+  }
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* REVIEW: Local storage persistence of theme is handled in TS logic.
+   If needed, additional .dark-mode specific tweaks can be added here. */
+
+/* IDEA: Future enhancement could include animated theme transitions,
+   or a system preference check using prefers-color-scheme. */
