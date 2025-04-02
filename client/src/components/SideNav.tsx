@@ -1,29 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-import { FaBars, FaUsers } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { MdSportsFootball, MdHealthAndSafety } from "react-icons/md";
-import { GrTechnology } from "react-icons/gr";
-import { BsFillPlayBtnFill } from "react-icons/bs";
-import { GiGemini } from "react-icons/gi";
-
+import { HiServerStack } from "react-icons/hi2";
+import { BsFillPlayBtnFill, BsMoonStarsFill } from "react-icons/bs";
 import "./SideNav.css";
 import auth from "../utils/auth";
 
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const saved = localStorage.getItem("theme");
+    return saved === "dark" ? "dark" : "light";
+  });
+
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  // Use a MutationObserver to watch for theme changes on the body element.
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setTheme(document.body.classList.contains("dark") ? "dark" : "light");
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   if (!auth.loggedIn()) return null;
 
   return (
-    <div className={`sidenav ${isOpen ? "open" : "closed"}`}>
-      {/* Toggle Button */}
+    <div className={`sidenav ${isOpen ? "open" : "closed"} ${theme}`}>
       <button className="sidenav-toggle" onClick={toggleSidebar}>
         <FaBars className="toggle-icon" />
       </button>
 
-      {/* Nav Links */}
       <div className="sidenav-links">
         <Link to="/Sports" className="sidenav-link">
           <MdSportsFootball className="sidenav-icon" />
@@ -36,7 +45,7 @@ const SideNav = () => {
         </Link>
 
         <Link to="/Technology" className="sidenav-link">
-          <GrTechnology className="sidenav-icon" />
+          <HiServerStack className="sidenav-icon" />
           {isOpen && <span>Technology</span>}
         </Link>
 
@@ -46,11 +55,9 @@ const SideNav = () => {
         </Link>
 
         <Link to="/Horoscope" className="sidenav-link">
-          <GiGemini className="sidenav-icon" />
+          <BsMoonStarsFill className="sidenav-icon" />
           {isOpen && <span>Horoscope</span>}
         </Link>
-
-  
       </div>
     </div>
   );

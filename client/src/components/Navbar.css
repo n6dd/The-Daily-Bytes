@@ -2,21 +2,27 @@
   Navbar Styles
 ============================================================================= */
 
-/* NOTE: Focus state for accessibility */
+/* Focus state for accessibility */
 .nav-link:focus,
-.login-button:focus,
+.logout-button:focus,
 .theme-toggle-button:focus {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
-/* =============================================================================
-  Layout Containers
-============================================================================= */
-
+/* -----------------------------------------------------------------------------
+   Navbar Container
+----------------------------------------------------------------------------- */
 .navbar {
-  background-color: #6dc2ff;
+  background-color: #157ac2;
   padding: 1.25rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .navbar-inner {
@@ -34,6 +40,9 @@
   transition: transform 0.3s ease;
 }
 
+/* -----------------------------------------------------------------------------
+   Navigation Tabs and Actions
+----------------------------------------------------------------------------- */
 .nav-tabs {
   display: flex;
   gap: 1rem;
@@ -49,72 +58,83 @@
   white-space: nowrap;
 }
 
-/* =============================================================================
-  Navigation Link Styles
-============================================================================= */
-
-.nav-link {
+/* -----------------------------------------------------------------------------
+   Navigation Link Styles (Rounded and Dope)
+----------------------------------------------------------------------------- */
+.nav-link,
+.theme-toggle-button {
   background-color: #4b5563;
-  color: white;
+  color: #fff;
   padding: 0.75rem 1.4rem;
-  border-radius: 0.75rem;
+  border-radius: 0.75rem;  /* More rounded for that dope look */
   text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.25s ease, transform 0.25s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-link:hover {
+/* Uniform Hover Effect */
+.nav-link:hover,
+.theme-toggle-button:hover {
   background-color: #5f6b7a;
-  transform: translateY(-1px) scale(1.05);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   text-decoration: none;
 }
 
-/* SIGN UP button styling */
+/* Active Tab Styling */
+.nav-link.active {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* SIGN UP button (color variation, same shape/shadow) */
 .signup-button {
   background-color: #6366f1;
-  color: white;
 }
 
 .signup-button:hover {
   background-color: #7c3aed;
-  box-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
-  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px) scale(1.02);
 }
 
-/* =============================================================================
-  Theme Toggle
-============================================================================= */
-
+/* -----------------------------------------------------------------------------
+   Theme Toggle (Two-button slider)
+----------------------------------------------------------------------------- */
 .theme-toggle-wrapper {
   position: relative;
-  display: flex;
-  background-color: #f1f5f9;
-  border: 1px solid #d1d5db;
-  border-radius: 9999px;
+  display: inline-flex;
+  background-color: #4b5563;
+  border-radius: 0.75rem;
   overflow: hidden;
-  padding: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .theme-toggle-button {
   background: none;
   border: none;
   font-size: 0.875rem;
-  font-weight: 500;
-  padding: 8px 14px;
-  display: flex;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   z-index: 10;
-  color: #1f2937;
+  color: #fff;
   cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease;
 }
 
 .theme-toggle-button.selected {
-  color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
 }
 
 .theme-slider {
@@ -122,10 +142,10 @@
   top: 0;
   bottom: 0;
   width: 50%;
-  background: linear-gradient(to right, #7c3aed, #6366f1);
-  border-radius: 9999px;
+  background: linear-gradient(to right, #6366f1, #7c3aed);
+  border-radius: 0.75rem;
   z-index: 0;
-  transition: all 0.3s ease;
+  transition: left 0.3s ease, right 0.3s ease;
 }
 
 .theme-slider.left {
@@ -140,25 +160,24 @@
   font-size: 1rem;
 }
 
-/* =============================================================================
-  Dark Theme
-============================================================================= */
-
+/* -----------------------------------------------------------------------------
+   Dark Theme (Overall page background)
+----------------------------------------------------------------------------- */
 body.dark {
   background-color: #111827;
   color: #f9fafb;
 }
 
-/* =============================================================================
-  Responsive
-============================================================================= */
-
+/* -----------------------------------------------------------------------------
+   Responsive
+----------------------------------------------------------------------------- */
 @media (max-width: 640px) {
   .nav-title {
     font-size: 1.5rem;
   }
 
-  .nav-link {
+  .nav-link,
+  .theme-toggle-button {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
   }

@@ -1,13 +1,20 @@
 .contact-container {
-    max-width: 640px;
-    margin: 2rem auto;
-    padding: 2.5rem;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-  }
+  max-width: 640px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+
+  /* Center within main.container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
   
   .contact-container h1 {
     font-size: 2rem;
@@ -82,3 +89,29 @@
     text-decoration: underline;
   }
   
+  /* ============================
+   Dark Mode Text Fixes
+============================ */
+body.dark .contact-container {
+  background-color: #1e293b;
+  color: #f9fafb;
+}
+
+body.dark .contact-container h1,
+body.dark .contact-container p,
+body.dark .contact-container label,
+body.dark .contact-container a {
+  color: #f9fafb;
+}
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+  background-color: #0f172a;
+  color: #f9fafb;
+  border: 1px solid #334155;
+}
+
+body.dark .contact-form input::placeholder,
+body.dark .contact-form textarea::placeholder {
+  color: #cbd5e1;
+}
