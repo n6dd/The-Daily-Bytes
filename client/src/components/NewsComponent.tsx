@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { retrieveNews } from "../api/mainNewsAPI"; 
-import "../pages/News.css";
+import { retrieveNews } from "../api/mainNewsAPI";
+import "./News.css"; // Assuming News.css lives in /components
 
+// ==============================
+// Types
+// ==============================
 interface NewsSource {
   id: string | null;
   name: string;
@@ -18,11 +21,14 @@ interface Article {
   content: string | null;
 }
 
+// ==============================
+// Component: NewsComponent
+// ==============================
 const NewsComponent = ({ category }: { category?: string }) => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState<number>(1); 
-  const [totalArticles, setTotalArticles] = useState<number>(0); 
+  const [page, setPage] = useState<number>(1);
+  const [totalArticles, setTotalArticles] = useState<number>(0);
   const articlesPerPage = 12;
 
   useEffect(() => {
@@ -49,22 +55,37 @@ const NewsComponent = ({ category }: { category?: string }) => {
         {category ? `${category} News` : "Latest News"}
       </h1>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="news-error">{error}</p>}
+
       {articles.length === 0 ? (
-        <p>No news available</p>
+        <p className="no-news">No news available</p>
       ) : (
         <div className="news-grid">
           {articles.map((article, index) => (
             <div key={index} className="news-card">
               {article.urlToImage && (
-                <img src={article.urlToImage} alt={article.title} />
+                <img
+                  src={article.urlToImage}
+                  alt={article.title}
+                  className="news-image"
+                />
               )}
-              <h2>{article.title}</h2>
-              <p>{article.description}</p>
-              <p><strong>Published:</strong> {new Date(article.publishedAt).toLocaleDateString()}</p>
-              <a href={article.url} target="_blank" rel="noopener noreferrer">
-                Read more
-              </a>
+              <div className="news-card-content">
+                <h2 className="news-title">{article.title}</h2>
+                <p className="news-summary">{article.description}</p>
+                <p className="news-date">
+                  <strong>Published:</strong>{" "}
+                  {new Date(article.publishedAt).toLocaleDateString()}
+                </p>
+                <a
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="read-more"
+                >
+                  Read more
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -74,6 +95,7 @@ const NewsComponent = ({ category }: { category?: string }) => {
         <button
           onClick={() => setPage(page > 1 ? page - 1 : page)}
           disabled={page === 1}
+          aria-label="Previous page"
         >
           Previous
         </button>
@@ -83,6 +105,7 @@ const NewsComponent = ({ category }: { category?: string }) => {
         <button
           onClick={() => setPage(page < totalPages ? page + 1 : page)}
           disabled={page === totalPages}
+          aria-label="Next page"
         >
           Next
         </button>

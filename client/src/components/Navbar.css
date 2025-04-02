@@ -14,13 +14,11 @@
   Layout Containers
 ============================================================================= */
 
-/* Navbar outer container */
 .navbar {
-  background-color: #6dc2ff; /* NOTE: Light blue background */
+  background-color: #6dc2ff;
   padding: 1.25rem 2rem;
 }
 
-/* Inner flex layout wrapper */
 .navbar-inner {
   display: flex;
   justify-content: space-between;
@@ -28,7 +26,6 @@
   flex-wrap: nowrap;
 }
 
-/* Site title */
 .nav-title {
   font-size: 1.6rem;
   font-weight: 700;
@@ -37,7 +34,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Navigation tabs (centered) */
 .nav-tabs {
   display: flex;
   gap: 1rem;
@@ -46,7 +42,6 @@
   flex-wrap: wrap;
 }
 
-/* Right-side action controls */
 .nav-actions {
   display: flex;
   gap: 1rem;
@@ -59,7 +54,7 @@
 ============================================================================= */
 
 .nav-link {
-  background-color: #4b5563; /* slate gray */
+  background-color: #4b5563;
   color: white;
   padding: 0.75rem 1.4rem;
   border-radius: 0.75rem;
@@ -71,7 +66,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* HOVER: Nav link interaction effect */
 .nav-link:hover {
   background-color: #5f6b7a;
   transform: translateY(-1px) scale(1.05);
@@ -79,15 +73,27 @@
   text-decoration: none;
 }
 
+/* SIGN UP button styling */
+.signup-button {
+  background-color: #6366f1;
+  color: white;
+}
+
+.signup-button:hover {
+  background-color: #7c3aed;
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
+  transform: translateY(-1px) scale(1.05);
+}
+
 /* =============================================================================
-  Theme Toggle (Light/Dark Mode)
+  Theme Toggle
 ============================================================================= */
 
 .theme-toggle-wrapper {
   position: relative;
   display: flex;
-  background-color: #f1f5f9; /* slate-50 */
-  border: 1px solid #d1d5db; /* slate-200 */
+  background-color: #f1f5f9;
+  border: 1px solid #d1d5db;
   border-radius: 9999px;
   overflow: hidden;
   padding: 2px;
@@ -103,7 +109,7 @@
   align-items: center;
   gap: 6px;
   z-index: 10;
-  color: #1f2937; /* slate-800 */
+  color: #1f2937;
   cursor: pointer;
 }
 
@@ -116,7 +122,7 @@
   top: 0;
   bottom: 0;
   width: 50%;
-  background: linear-gradient(to right, #7c3aed, #6366f1); /* violet-indigo */
+  background: linear-gradient(to right, #7c3aed, #6366f1);
   border-radius: 9999px;
   z-index: 0;
   transition: all 0.3s ease;
@@ -135,7 +141,7 @@
 }
 
 /* =============================================================================
-  Dark Theme Mode (Global)
+  Dark Theme
 ============================================================================= */
 
 body.dark {
@@ -144,21 +150,16 @@ body.dark {
 }
 
 /* =============================================================================
-  Responsive Adjustments
+  Responsive
 ============================================================================= */
 
 @media (max-width: 640px) {
   .nav-title {
     font-size: 1.5rem;
   }
+
   .nav-link {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
   }
 }
-
-/* REVIEW: Local storage persistence of theme is handled in TS logic.
-   If needed, additional .dark-mode specific tweaks can be added here. */
-
-/* IDEA: Future enhancement could include animated theme transitions,
-   or a system preference check using prefers-color-scheme. */
