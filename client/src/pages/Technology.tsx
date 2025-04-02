@@ -1,8 +1,10 @@
 //import React from 'react'
 
+import NewsComponent from "../components/NewsComponent";
+
 const Technology = () => {
   return (
-    <div>Technology</div>
+   <NewsComponent category="Technology" />
   )
 }
 
