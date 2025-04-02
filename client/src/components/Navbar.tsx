@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiMoon, FiSun } from "react-icons/fi";
 import auth from "../utils/auth";
 import "./Navbar.css";
@@ -15,10 +15,11 @@ interface SliderToggleProps {
 
 const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
   return (
-    <div className="theme-toggle-wrapper">
+    <div className="theme-toggle-wrapper" role="radiogroup" aria-label="Theme toggle">
       <button
         className={`theme-toggle-button ${selected === "light" ? "selected" : ""}`}
         onClick={() => setSelected("light")}
+        aria-pressed={selected === "light"}
       >
         <FiSun className="icon" />
         Light
@@ -26,6 +27,7 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
       <button
         className={`theme-toggle-button ${selected === "dark" ? "selected" : ""}`}
         onClick={() => setSelected("dark")}
+        aria-pressed={selected === "dark"}
       >
         <FiMoon className="icon" />
         Dark
@@ -40,6 +42,7 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
 // =============================================================================
 
 const Navbar = () => {
+  const location = useLocation();
   const [loginCheck, setLoginCheck] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const saved = localStorage.getItem("theme");
@@ -64,13 +67,17 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="navbar">
+    <header className="navbar fade-in">
       <div className="navbar-inner">
         <h1 className="nav-title">THE DAILY BYTES</h1>
 
         <nav className="nav-tabs">
           {tabs.map((tab) => (
-            <Link key={tab.label} to={tab.to} className="nav-link">
+            <Link
+              key={tab.label}
+              to={tab.to}
+              className={`nav-link ${location.pathname === tab.to ? "active" : ""}`}
+            >
               {tab.label.toUpperCase()}
             </Link>
           ))}
@@ -79,7 +86,7 @@ const Navbar = () => {
         <div className="nav-actions">
           {loginCheck ? (
             <button
-              className="nav-link"
+              className="nav-link logout-button"
               onClick={() => {
                 auth.logout();
                 setLoginCheck(false);
@@ -97,6 +104,7 @@ const Navbar = () => {
               </Link>
             </>
           )}
+
           <SliderToggle selected={theme} setSelected={setTheme} />
         </div>
       </div>

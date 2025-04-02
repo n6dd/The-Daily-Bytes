@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiMenu, FiHome, FiStar, FiSettings, FiUser, FiX } from 'react-icons/fi';
+import './Horoscope.css';
 
 // ==========================
 // Types
@@ -18,8 +18,6 @@ interface HoroscopeCollection {
 // Component: Horoscope
 // ==========================
 const Horoscope: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
   const [selectedSign, setSelectedSign] = useState('aries');
   const [currentDate, setCurrentDate] = useState('');
   const [horoscope, setHoroscope] = useState<HoroscopeData>({
@@ -29,7 +27,7 @@ const Horoscope: React.FC = () => {
   });
 
   // ==========================
-  // Horoscope Data
+  // Horoscope Data (Static)
   // ==========================
   const horoscopes: HoroscopeCollection = {
     aries: { text: "Today is a day for new beginnings...", luckyNumber: 7, mood: "Adventurous" },
@@ -59,50 +57,35 @@ const Horoscope: React.FC = () => {
     };
     setCurrentDate(now.toLocaleDateString('en-US', options));
     updateHoroscope(selectedSign);
-
-    const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      setIsOpen(!mobile);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, [selectedSign]);
 
   // ==========================
   // Helpers
   // ==========================
-  const updateHoroscope = (sign: string) => setHoroscope(horoscopes[sign]);
-  const handleSignChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedSign(e.target.value);
-  const handleRefresh = () => updateHoroscope(selectedSign);
+  const updateHoroscope = (sign: string) => {
+    setHoroscope(horoscopes[sign]);
+  };
+
+  const handleSignChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSign(e.target.value);
+  };
 
   const getSignName = () => {
     const select = document.getElementById('zodiac-sign') as HTMLSelectElement;
     return select?.options[select.selectedIndex]?.text.split(' ')[0] || '';
   };
 
-  const toggleNav = () => setIsOpen(!isOpen);
-
   // ==========================
   // Render
   // ==========================
   return (
-    <>
-      {/* Toggle Button */}
-      <button className={`sidenav-toggle ${isOpen ? 'open' : ''}`} onClick={toggleNav}>
-        {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
-      </button>
-
-      {/* Horoscope Box */}
+    <div className="horoscope-container">
       <div className="horoscope-section">
         <div className="horoscope-header">
           <h2>Daily Horoscope</h2>
           <div className="date-display">{currentDate}</div>
         </div>
 
-        {/* Zodiac Selector */}
         <select
           className="zodiac-selector"
           id="zodiac-sign"
@@ -123,7 +106,6 @@ const Horoscope: React.FC = () => {
           <option value="pisces">Pisces (Feb 19 - Mar 20)</option>
         </select>
 
-        {/* Horoscope Content */}
         <div className="horoscope-content">
           <h3 className="horoscope-title">{getSignName()}</h3>
           <p className="horoscope-text">{horoscope.text}</p>
@@ -139,13 +121,8 @@ const Horoscope: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Refresh Button */}
-        <button className="refresh-btn" onClick={handleRefresh}>
-          Get Today's Horoscope
-        </button>
       </div>
-    </>
+    </div>
   );
 };
 

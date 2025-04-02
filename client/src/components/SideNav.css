@@ -1,76 +1,115 @@
-/* ============================================================================
+/* =============================================================================
    Side Navigation Styles
 ============================================================================ */
 
 .sidenav {
   position: fixed;
-  top: auto; /* match navbar height */
+  top: auto; 
   left: 0;
   height: calc(100% - 82px);
   width: 200px;
-  background-color: #fff;
-  padding-top: 1rem;
-  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: width 0.3s ease, transform 0.3s ease;
-  overflow-x: hidden;
+  background-color: #ffffff;
+  padding-top: 1.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-top-right-radius: 0.6rem; /* Sharper corners */
+  border-bottom-right-radius: 0.6rem;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
   z-index: 999;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidenav.closed {
   width: 60px;
 }
 
+.sidenav.dark {
+  background-color: #1e293b; /* Dark background for dark theme */
+}
+
+/* -----------------------------------------------------------------------------
+   Toggle Button
+----------------------------------------------------------------------------- */
 .sidenav-toggle {
   background-color: #6dc2ff;
   border: none;
   color: white;
   cursor: pointer;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  margin-left: 0.5rem;
+  width: 40px;  /* Slightly smaller for a sharper look */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sidenav-toggle:hover {
+  transform: scale(1.05);
 }
 
 .toggle-icon {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
-/* Navigation Links */
+/* -----------------------------------------------------------------------------
+   Navigation Links
+----------------------------------------------------------------------------- */
 .sidenav-links {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
 }
 
 .sidenav-link {
   display: flex;
+  flex-direction: column;
   align-items: center;
   color: #000;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  padding: 0.5rem;
-  transition: background-color 0.3s ease;
+  padding: 0.4rem;
+  width: 100%;
+  border-radius: 0.4rem;  /* Sharper edges */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidenav-link:hover {
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  background-color: #e0e0e0;
 }
 
 .sidenav-icon {
-  font-size: 1.8rem;
-  margin-right: 10px;
+  font-size: 1.6rem;
+  margin-bottom: 0.2rem;
 }
 
-/* ============================================================================
+/* Dark mode link adjustments */
+.sidenav.dark .sidenav-link {
+  color: #f1f5f9;
+}
+
+.sidenav.dark .sidenav-link:hover {
+  background-color: #2d3b52;
+}
+
+.sidenav.dark .sidenav-icon {
+  color: #f1f5f9;
+}
+
+/* -----------------------------------------------------------------------------
    Responsive
-============================================================================ */
+----------------------------------------------------------------------------- */
 @media screen and (max-width: 768px) {
   .sidenav {
     transform: translateX(-100%);
