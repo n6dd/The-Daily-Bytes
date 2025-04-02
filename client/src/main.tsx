@@ -7,15 +7,16 @@ import ErrorPage from './pages/ErrorPage';
 import Access from './pages/Access';
 import Contact from './pages/Contact';
 import Entertainment from './pages/Entertainment';
-import Gaming from './pages/Gaming';
+import Technology from './pages/Technology';
 import Home from './pages/Home';
 import Horoscope from './pages/Horoscope'; // ✅ Horoscope
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';       // ✅ SignUp
 import Sports from './pages/Sports';
 import Trending from './pages/Trending';
-import Travel from './pages/Travel';
+import Health from './pages/Health';
 import DailyByte from './pages/DailyByte'; // ✅ DailyByte
+
 
 const router = createBrowserRouter([
   {
@@ -29,12 +30,12 @@ const router = createBrowserRouter([
       { path: 'dailybyte', element: <DailyByte /> },
       { path: 'contact', element: <Contact /> },
       { path: 'entertainment', element: <Entertainment /> },
-      { path: 'gaming', element: <Gaming /> },
       { path: 'access', element: <Access /> },
       { path: 'sports', element: <Sports /> },
-      { path: 'travel', element: <Travel /> },
+      { path: 'health', element: <Health /> },
       { path: 'trending', element: <Trending /> },
       { path: 'horoscope', element: <Horoscope /> },
+      { path: 'Technology', element: <Technology /> },
     ],
   },
 ]);

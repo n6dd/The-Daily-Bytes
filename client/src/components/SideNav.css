@@ -1,86 +1,79 @@
 /* ============================================================================
-   Side Navigation Styles (Desktop + Mobile aligned to Navbar height)
+   Side Navigation Styles
 ============================================================================ */
 
 .sidenav {
-  background-color: #fff;
   position: fixed;
-  top: auto; /* Match your Navbar height exactly */
+  top: auto; /* match navbar height */
   left: 0;
-  height: calc(100% - 82px); /* Match Navbar offset */
+  height: calc(100% - 82px);
   width: 200px;
-  padding: 1rem;
+  background-color: #fff;
+  padding-top: 1rem;
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  z-index: 1000;
+  transition: width 0.3s ease, transform 0.3s ease;
+  overflow-x: hidden;
+  z-index: 999;
 }
 
 .sidenav.closed {
   width: 60px;
 }
 
-.sidenav.open {
-  display: block;
-}
-
-.sidenav.hide {
-  display: none;
-}
-
 .sidenav-toggle {
   background-color: #6dc2ff;
   border: none;
-  padding: 10px;
   color: white;
   cursor: pointer;
   border-radius: 50%;
-  position: fixed;
-  top: 92px; /* Just below the navbar (82px + 10px) */
-  left: 10px;
-  z-index: 1100;
-  font-size: 1.2rem;
+  width: 45px;
+  height: 45px;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.toggle-icon {
+  font-size: 1.5rem;
+}
+
+/* Navigation Links */
 .sidenav-links {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 50px;
+  gap: 1.5rem;
 }
 
 .sidenav-link {
   display: flex;
   align-items: center;
   color: #000;
-  font-size: 1.1rem;
   text-decoration: none;
   font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.5rem;
   transition: background-color 0.3s ease;
 }
 
 .sidenav-link:hover {
   background-color: #f0f0f0;
-  padding-left: 10px;
   border-radius: 5px;
 }
 
 .sidenav-icon {
+  font-size: 1.8rem;
   margin-right: 10px;
-  font-size: 1.5rem;
 }
 
 /* ============================================================================
-   Responsive Fix for Mobile - Consistent with Navbar
+   Responsive
 ============================================================================ */
-
 @media screen and (max-width: 768px) {
   .sidenav {
-    width: 200px;
     transform: translateX(-100%);
-    top: 82px;
-    height: calc(100% - 82px);
-    transition: transform 0.3s ease;
   }
 
   .sidenav.open {
@@ -92,18 +85,9 @@
   }
 
   .sidenav-toggle {
+    position: fixed;
     top: 92px;
     left: 10px;
-  }
-
-  .sidenav-links {
-    flex-direction: column;
-    gap: 1.2rem;
-    padding-top: 2rem;
-  }
-
-  .sidenav-link {
-    font-size: 1rem;
-    white-space: nowrap;
+    z-index: 1100;
   }
 }
