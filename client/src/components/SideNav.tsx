@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-// Icons
 import { FaBars, FaUsers } from "react-icons/fa";
 import { MdSportsFootball, MdHealthAndSafety } from "react-icons/md";
 import { GrTechnology } from "react-icons/gr";
@@ -19,58 +18,39 @@ const SideNav = () => {
 
   return (
     <div className={`sidenav ${isOpen ? "open" : "closed"}`}>
-
       {/* Toggle Button */}
       <button className="sidenav-toggle" onClick={toggleSidebar}>
-        {/* @ts-ignore */}
-        <FaBars className="sidenav-icon" />
+        <FaBars className="toggle-icon" />
       </button>
 
       {/* Nav Links */}
       <div className="sidenav-links">
-
-        {/* Sports */}
         <Link to="/Sports" className="sidenav-link">
-          {/* @ts-ignore */}
-          <MdSportsFootball />
-          {isOpen && "Sports"}
+          <MdSportsFootball className="sidenav-icon" />
+          {isOpen && <span>Sports</span>}
         </Link>
 
-        {/* Health (was Travel) */}
         <Link to="/Health" className="sidenav-link">
-          {/* @ts-ignore */}
           <MdHealthAndSafety className="sidenav-icon" />
-          {isOpen && "Health"}
+          {isOpen && <span>Health</span>}
         </Link>
 
-        {/* Technology (was Gaming) */}
         <Link to="/Technology" className="sidenav-link">
-          {/* @ts-ignore */}
           <GrTechnology className="sidenav-icon" />
-          {isOpen && "Technology"}
+          {isOpen && <span>Technology</span>}
         </Link>
 
-        {/* Entertainment */}
         <Link to="/Entertainment" className="sidenav-link">
-          {/* @ts-ignore */}
           <BsFillPlayBtnFill className="sidenav-icon" />
-          {isOpen && "Entertainment"}
+          {isOpen && <span>Entertainment</span>}
         </Link>
 
-        {/* Horoscope (was Puzzle) */}
         <Link to="/Horoscope" className="sidenav-link">
-          {/* @ts-ignore */}
           <GiGemini className="sidenav-icon" />
-          {isOpen && "Horoscope"}
+          {isOpen && <span>Horoscope</span>}
         </Link>
 
-        {/* Users */}
-        <Link to="/Users" className="sidenav-link">
-          {/* @ts-ignore */}
-          <FaUsers className="sidenav-icon" />
-          {isOpen && "Users"}
-        </Link>
-
+  
       </div>
     </div>
   );
