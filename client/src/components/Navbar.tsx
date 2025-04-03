@@ -62,7 +62,6 @@ const Navbar = () => {
     { label: "Home", to: "/" },
     { label: "DailyByte", to: "/dailybyte" },
     { label: "Trending", to: "/trending" },
-    { label: "Access", to: "/access" },
     { label: "Contact", to: "/contact" },
   ];
 
