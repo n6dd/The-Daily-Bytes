@@ -1,11 +1,13 @@
+/* Default body styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f9fafb;
-  color: #333;
+  color: #1e293b;
   margin: 0;
   padding-top: 80px; /* Ensure content doesn't overlap the navbar */
 }
 
+/* Container for the content */
 .container {
   max-width: 700px;
   margin: 0 auto;
@@ -16,12 +18,14 @@ body {
   margin-top: 20px; /* Space for the fixed navbar */
 }
 
+/* Heading styles */
 h1 {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
+/* Input field styles */
 input {
   width: 400px; /* Fixed width for the input field */
   padding: 12px;
@@ -34,6 +38,7 @@ input {
   margin-right: auto; /* Centering the input field */
 }
 
+/* Summary section styles */
 .summary {
   background: #f1f5f9;
   padding: 15px;
@@ -73,4 +78,38 @@ input {
   h1 {
     font-size: 20px; /* Adjust the font size for smaller screens */
   }
+}
+
+/* Dark Mode for this page */
+body.dark {
+  background-color: #1e293b; /* Dark background for the entire page */
+  color: #f9fafb; /* Light text color */
+}
+
+body.dark .container {
+  background: #1e293b; /* Dark container background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for the container */
+}
+
+body.dark h1 {
+  color: #f9fafb; /* Light color for headings */
+}
+
+body.dark input {
+  background-color: #2d3a47; /* Dark input background */
+  border: 1px solid #4b5563; /* Dark border for the input */
+  color: #f9fafb; /* Light text in the input */
+}
+
+body.dark .summary {
+  background: #374151; /* Dark background for summary */
+  color: #f9fafb; /* Light text for summary */
+}
+
+body.dark .summary a {
+  color: #60a5fa; /* Dark mode highlight color for links */
+}
+
+body.dark .loading {
+  color: #f9fafb; /* Light text for loading state */
 }
