@@ -1,8 +1,10 @@
 //import React from 'react'
 
+import NewsComponent from "../components/NewsComponent";
+
 const Health = () => {
   return (
-    <div>Health</div>
+  <NewsComponent category="Health" />
   )
 }
 
