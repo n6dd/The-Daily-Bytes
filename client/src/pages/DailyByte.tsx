@@ -3,7 +3,7 @@ import axios from "axios";
 import { Article } from '../interfaces/news';
 import './DailyByte.css';
 
-const NEWS_API_KEY = "583da3a829f44cb89ffb5d1cecf08f2d";
+const API_KEY = process.env.NEWS_API_KEY;
 const BASE_URL = "https://newsapi.org/v2/everything";
 
 export default function PersonalizedNews() {
@@ -18,7 +18,7 @@ export default function PersonalizedNews() {
       const response = await axios.get<{ articles: Article[] }>(BASE_URL, {
         params: {
           q: topic,
-          apiKey: NEWS_API_KEY,
+          apiKey: API_KEY,
           language: "en",
           sortBy: "publishedAt",
         },
