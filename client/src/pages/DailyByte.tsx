@@ -3,7 +3,7 @@ import axios from "axios";
 import { Article } from '../interfaces/news';
 import './DailyByte.css';
 
-const API_KEY = process.env.NEWS_API_KEY;
+const API_KEY = '4015395bb806438aad160167ee5d03dd';
 const BASE_URL = "https://newsapi.org/v2/everything";
 
 export default function PersonalizedNews() {
