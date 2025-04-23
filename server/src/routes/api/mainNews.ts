@@ -29,6 +29,9 @@ router.get('/:category?', async (req: Request, res: Response) => {
       },
     });
 
+console.log(response)
+console.log(response.data)
+
     res.status(200).json(response.data);
   } catch (error: any) {
     console.error(`Error fetching news for ${req.params.category}:`, error.message);
