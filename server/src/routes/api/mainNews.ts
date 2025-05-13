@@ -18,7 +18,7 @@ router.get('/:category?', async (req: Request, res: Response) => {
     const { page = 1, pageSize = 30 } = req.query; 
 
     console.log(`Fetching news for category: ${category || 'general'} | Page: ${page} | PageSize: ${pageSize}`);
-
+    
     const response = await axios.get(BASE_URL, {
       params: {
         country: 'us',
@@ -29,11 +29,12 @@ router.get('/:category?', async (req: Request, res: Response) => {
       },
     });
 
-console.log(response)
-console.log(response.data)
+    console.log(response)
+    console.log(response.data)
 
     res.status(200).json(response.data);
   } catch (error: any) {
+    console.log("Error: ", error);
     console.error(`Error fetching news for ${req.params.category}:`, error.message);
     res.status(error.response?.status || 500).json({ message: 'Failed to fetch news' });
   }
