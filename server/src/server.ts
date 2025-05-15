@@ -18,9 +18,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.static('../client/dist'));
 // app.use('/api/news', mainNewsRouter); 
 app.use(routes); 
-app.use(express.static('../client/dist'));
 
 
 app.use((_req, res) => {

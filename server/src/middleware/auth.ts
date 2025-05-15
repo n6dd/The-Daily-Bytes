@@ -15,13 +15,14 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
   if (authHeader) {
     // Extract the token from the authorization header
     const token = authHeader.split(' ')[1];
-
+    console.log("Token: ", token);
     // Get the secret key from the environment variables
     const secretKey = process.env.JWT_SECRET_KEY || '';
-
+    console.log("Secret Key: ", secretKey);
     // Verify the JWT token
     jwt.verify(token, secretKey, (err, user) => {
       if (err) {
+        console.log("Auth Error: ", err);
         return res.sendStatus(403); // Send forbidden status if the token is invalid
       }
 
