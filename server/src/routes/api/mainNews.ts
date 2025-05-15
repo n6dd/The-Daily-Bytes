@@ -19,6 +19,10 @@ router.get('/:category?', async (req: Request, res: Response) => {
 
     console.log(`Fetching news for category: ${category || 'general'} | Page: ${page} | PageSize: ${pageSize}`);
     
+    const url = `${BASE_URL}?country=us&category=${category || 'general'}&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`
+    console.log("URL: ", url);
+    const response = await axios.get(url);
+    /*
     const response = await axios.get(BASE_URL, {
       params: {
         country: 'us',
@@ -28,6 +32,7 @@ router.get('/:category?', async (req: Request, res: Response) => {
         apiKey: API_KEY,
       },
     });
+    */
 
     console.log(response)
     console.log(response.data)
