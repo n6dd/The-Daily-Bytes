@@ -1,46 +1,37 @@
-import express from 'express';
-import axios from 'axios'; // TODO: Use axios for proper response parsing and error handling
-import type { Request, Response } from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config(); // TODO: Load environment variables from .env
+import express, { Request, Response } from 'express';
+import axios from 'axios';
 
 const router = express.Router();
 
-// ==============================
-// TODO: External API Setup
-// ==============================
-const BASE_URL = 'https://newsapi.org/v2/top-headlines';
-const API_KEY = process.env.NEWS_API_KEY;
+const MEDIASTACK_API_KEY = process.env.MEDIASTACK_API_KEY;
+const BASE_URL = 'http://api.mediastack.com/v1/news';
 
-// ==============================
-// Route: /api/news/:category?
-// ==============================
 router.get('/:category?', async (req: Request, res: Response) => {
   try {
     const { category } = req.params;
     const { page = 1, pageSize = 30 } = req.query;
 
-    // NOTE Build full query URL with fallback to 'general' category
-    const params = {
-      country: 'us',
-      category: category || 'general',
-      page,
-      pageSize,
-      apiKey: API_KEY,
-    };
+    const offset = ((+page || 1) - 1) * (+pageSize || 30);
 
-    console.log(`Fetching news → Category: ${params.category}, Page: ${page}, PageSize: ${pageSize}`);
+    const params = {
+      access_key: MEDIASTACK_API_KEY,
+      categories: category || '',
+      countries: 'us',
+      languages: 'en',
+      limit: pageSize,
+      offset,
+    };
 
     const response = await axios.get(BASE_URL, { params });
 
-    // TODO: Send parsed articles and metadata to frontend
-    res.status(200).json(response.data);
+    res.status(200).json({
+      articles: response.data.data,
+      totalResults: response.data.pagination.total,
+    });
   } catch (error: any) {
-    console.error(`Error fetching news for ${req.params.category}:`, error.message);
-    res.status(error.response?.status || 500).json({ message: 'Failed to fetch news' });
+    console.error('Mediastack API error:', error.message);
+    res.status(500).json({ message: 'Failed to fetch news from Mediastack' });
   }
 });
 
 export { router as mainNewsRouter };
-// NOTE Mounted in api/index.ts → /api/news

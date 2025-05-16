@@ -1,4 +1,6 @@
+// ==============================
 // TODO: Extend Express Request type to include `user` from JWT
+// ==============================
 declare namespace Express {
   interface Request {
     user?: {

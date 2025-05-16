@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', async (_req: Request, res: Response) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] }, // NOTE Exclude sensitive data
+      attributes: { exclude: ['password'] }, // NOTE: Exclude sensitive data
     });
     res.json(users);
   } catch (error: any) {
@@ -56,11 +56,12 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   const { username, password } = req.body;
+
   try {
     const user = await User.findByPk(id);
     if (user) {
       user.username = username;
-      user.password = password; // NOTE Will be hashed via model hook
+      user.password = password; // NOTE: Will be hashed by model hook
       await user.save();
       res.json(user);
     } else {

@@ -1,7 +1,9 @@
 import { seedUsers } from './user-seeds.js';
 import sequelize from '../config/connection.js';
 
+// ==============================
 // TODO: Seed the database with initial data (e.g., users)
+// ==============================
 const seedAll = async (): Promise<void> => {
   try {
     await sequelize.sync({ force: true });

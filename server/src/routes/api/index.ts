@@ -1,17 +1,26 @@
 import { Router } from 'express';
 import { userRouter } from './user-routes.js';
-import { mainNewsRouter } from './mainNews.js';
+import { mediaNewsRouter } from './mainNews.js';       // ✅ Mediastack route
+import { horoscopeRouter } from './horoscope.js';       // ✅ Aztro route
 
-// TODO: Create root API router
+// ==============================
+// Create API Router
+// ==============================
 const router = Router();
 
-// TODO: Mount /users route
-// NOTE Handles user profile fetch and admin functions
-router.use('/users', userRouter);
+// ==============================
+// User Routes
+// ==============================
+router.use('/users', userRouter);                       // e.g. /api/users
 
-// TODO: Mount /news route
-// NOTE Proxies requests from frontend to NewsAPI through backend
-router.use('/news', mainNewsRouter);
+// ==============================
+// Mediastack News Route
+// ==============================
+router.use('/media-news', mediaNewsRouter);             // e.g. /api/media-news/:category?
+
+// ==============================
+// Horoscope Route (Aztro)
+// ==============================
+router.use('/horoscope', horoscopeRouter);              // e.g. /api/horoscope/:sign
 
 export default router;
-// NOTE Exported in server.ts as `app.use('/api', apiRoutes)`
