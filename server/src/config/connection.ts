@@ -13,7 +13,6 @@ import { Sequelize } from 'sequelize';
 // ==============================
 // TODO: Initialize Sequelize instance
 // ==============================
-
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL) 
   // NOTE Use DB_URL if provided (e.g., on Render for production)
@@ -33,6 +32,5 @@ const sequelize = process.env.DB_URL
 // ==============================
 // TODO: Export connection
 // ==============================
-
 export default sequelize;
 // NOTE Exported as default so it can be imported in models and server.ts

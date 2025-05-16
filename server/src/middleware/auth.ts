@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
+// ==============================
 // TODO: Define interface for decoded JWT payload
+// ==============================
 interface JwtPayload {
   username: string;
 }
 
+// ==============================
 // TODO: Middleware to verify JWT and attach decoded user to request
+// ==============================
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 

@@ -1,10 +1,14 @@
-// TODO: Define structure of the article source returned by NewsAPI
+// ==============================
+// TODO: Define structure of the article source returned by API
+// ==============================
 export interface NewsSource {
   id: string | null;
   name: string;
 }
 
+// ==============================
 // TODO: Define structure of a single news article
+// ==============================
 export interface Article {
   source: NewsSource;
   author: string | null;
@@ -16,7 +20,9 @@ export interface Article {
   content: string | null;
 }
 
-// TODO: Full API response object from NewsAPI
+// ==============================
+// TODO: Full API response object from NewsAPI (or compatible API)
+// ==============================
 export interface NewsApiResponse {
   status: string;
   totalResults: number;

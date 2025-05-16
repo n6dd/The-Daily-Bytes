@@ -5,8 +5,13 @@ import sequelize from '../config/connection.js';
 import { UserFactory } from './user.js';
 // TODO: Import user model factory function
 
+// ==============================
 // TODO: Initialize User model with Sequelize connection
+// ==============================
 const User = UserFactory(sequelize);
 
-// NOTE Export initialized models for use in other parts of the app
+// ==============================
+// TODO: Export initialized models
+// ==============================
+// NOTE Export initialized models for use in routes and controllers
 export { User };
