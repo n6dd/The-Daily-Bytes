@@ -58,7 +58,7 @@ const Login = () => {
             className="form-input"
             type='text'
             name='username'
-            value={loginData.username}
+            value={loginData.username ?? ''}  // ✅ Null-safe value
             onChange={handleChange}
           />
         </div>
@@ -70,7 +70,7 @@ const Login = () => {
             className="form-input"
             type='password'
             name='password'
-            value={loginData.password}
+            value={loginData.password ?? ''}  // ✅ Null-safe value
             onChange={handleChange}
           />
         </div>
