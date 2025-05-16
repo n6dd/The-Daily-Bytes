@@ -1,51 +1,46 @@
 import express from 'express';
-//import axios from 'axios';
+import axios from 'axios'; // TODO: Use axios for proper response parsing and error handling
 import type { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config(); // TODO: Load environment variables from .env
 
 const router = express.Router();
 
-// API
-
+// ==============================
+// TODO: External API Setup
+// ==============================
 const BASE_URL = 'https://newsapi.org/v2/top-headlines';
 const API_KEY = process.env.NEWS_API_KEY;
 
+// ==============================
+// Route: /api/news/:category?
+// ==============================
 router.get('/:category?', async (req: Request, res: Response) => {
   try {
     const { category } = req.params;
-    const { page = 1, pageSize = 30 } = req.query; 
+    const { page = 1, pageSize = 30 } = req.query;
 
-    console.log(`Fetching news for category: ${category || 'general'} | Page: ${page} | PageSize: ${pageSize}`);
-    
-    const url = `${BASE_URL}?country=us&category=${category || 'general'}&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`
-    console.log("URL: ", url);
-    const response = await fetch(url);
-    //const response = await axios.get(url);
-    /*
-    const response = await axios.get(BASE_URL, {
-      params: {
-        country: 'us',
-        category: category || 'general',
-        page, 
-        pageSize, 
-        apiKey: API_KEY,
-      },
-    });
-    */
+    // NOTE Build full query URL with fallback to 'general' category
+    const params = {
+      country: 'us',
+      category: category || 'general',
+      page,
+      pageSize,
+      apiKey: API_KEY,
+    };
 
-    console.log(response)
-   // console.log(response.data)
+    console.log(`Fetching news → Category: ${params.category}, Page: ${page}, PageSize: ${pageSize}`);
 
-    //res.status(200).json(response.data);
-    res.status(200).json(response);
+    const response = await axios.get(BASE_URL, { params });
+
+    // TODO: Send parsed articles and metadata to frontend
+    res.status(200).json(response.data);
   } catch (error: any) {
-    console.log("Error: ", error);
     console.error(`Error fetching news for ${req.params.category}:`, error.message);
     res.status(error.response?.status || 500).json({ message: 'Failed to fetch news' });
   }
 });
 
 export { router as mainNewsRouter };
-// Hello 
+// NOTE Mounted in api/index.ts → /api/news

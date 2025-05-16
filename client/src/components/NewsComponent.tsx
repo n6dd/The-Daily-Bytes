@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { retrieveNews } from "../api/mainNewsAPI";
-import "./News.css"; // Assuming News.css lives in /components
+import "./News.css";
+// TODO: Import layout + grid styles for news feed
+// NOTE Controls grid display, cards, and pagination visuals
 
 // ==============================
-// Types
+// TODO: Article Types
 // ==============================
+
 interface NewsSource {
   id: string | null;
   name: string;
@@ -22,15 +25,18 @@ interface Article {
 }
 
 // ==============================
-// Component: NewsComponent
+// TODO: News Component
 // ==============================
+
 const NewsComponent = ({ category }: { category?: string }) => {
+  // NOTE Track article results and fetch state
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
   const [totalArticles, setTotalArticles] = useState<number>(0);
   const articlesPerPage = 12;
 
+  // TODO: Fetch news from API on page/category change
   useEffect(() => {
     const fetchNews = async () => {
       try {
@@ -44,7 +50,7 @@ const NewsComponent = ({ category }: { category?: string }) => {
     };
 
     fetchNews();
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); // NOTE Reset scroll on update
   }, [category, page]);
 
   const totalPages = Math.ceil(totalArticles / articlesPerPage);
@@ -55,8 +61,10 @@ const NewsComponent = ({ category }: { category?: string }) => {
         {category ? `${category} News` : "Latest News"}
       </h1>
 
+      {/* TODO: Display error if fetch fails */}
       {error && <p className="news-error">{error}</p>}
 
+      {/* TODO: Handle empty state vs articles available */}
       {articles.length === 0 ? (
         <p className="no-news">No news available</p>
       ) : (
@@ -91,6 +99,7 @@ const NewsComponent = ({ category }: { category?: string }) => {
         </div>
       )}
 
+      {/* TODO: Pagination Controls */}
       <div className="pagination">
         <button
           onClick={() => setPage(page > 1 ? page - 1 : page)}
@@ -115,3 +124,4 @@ const NewsComponent = ({ category }: { category?: string }) => {
 };
 
 export default NewsComponent;
+// NOTE Used for all category-specific and general news views

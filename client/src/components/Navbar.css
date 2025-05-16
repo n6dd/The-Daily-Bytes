@@ -1,8 +1,8 @@
 /* =============================================================================
-  Navbar Styles
+  TODO: Navbar Styles
 ============================================================================= */
 
-/* Focus state for accessibility */
+/* NOTE Focus state for keyboard accessibility */
 .nav-link:focus,
 .logout-button:focus,
 .theme-toggle-button:focus {
@@ -11,8 +11,9 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Navbar Container
+   TODO: Navbar Container + Inner Layout
 ----------------------------------------------------------------------------- */
+
 .navbar {
   background-color: #157ac2;
   padding: 1.25rem 2rem;
@@ -41,8 +42,9 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Navigation Tabs and Actions
+   TODO: Navigation Tabs and Action Area
 ----------------------------------------------------------------------------- */
+
 .nav-tabs {
   display: flex;
   gap: 1rem;
@@ -59,14 +61,15 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Navigation Link Styles (Rounded and Dope)
+   TODO: Nav Link + Theme Button (Shared Styles)
 ----------------------------------------------------------------------------- */
+
 .nav-link,
 .theme-toggle-button {
   background-color: #4b5563;
   color: #fff;
   padding: 0.75rem 1.4rem;
-  border-radius: 0.75rem;  /* More rounded for that dope look */
+  border-radius: 0.75rem;
   text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 600;
@@ -79,7 +82,7 @@
   justify-content: center;
 }
 
-/* Uniform Hover Effect */
+/* NOTE Shared Hover State */
 .nav-link:hover,
 .theme-toggle-button:hover {
   background-color: #5f6b7a;
@@ -88,12 +91,15 @@
   text-decoration: none;
 }
 
-/* Active Tab Styling */
+/* NOTE Active Tab Styling */
 .nav-link.active {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
-/* SIGN UP button (color variation, same shape/shadow) */
+/* -----------------------------------------------------------------------------
+   TODO: Sign Up Button (Purple Variation)
+----------------------------------------------------------------------------- */
+
 .signup-button {
   background-color: #6366f1;
 }
@@ -105,8 +111,9 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Theme Toggle (Two-button slider)
+   TODO: Theme Toggle Switch
 ----------------------------------------------------------------------------- */
+
 .theme-toggle-wrapper {
   position: relative;
   display: inline-flex;
@@ -137,6 +144,7 @@
   color: #fff;
 }
 
+/* NOTE Animated Background Slider */
 .theme-slider {
   position: absolute;
   top: 0;
@@ -161,16 +169,18 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Dark Theme (Overall page background)
+   TODO: Global Dark Theme Override
 ----------------------------------------------------------------------------- */
+
 body.dark {
   background-color: #111827;
   color: #f9fafb;
 }
 
 /* -----------------------------------------------------------------------------
-   Responsive
+   TODO: Mobile/Responsive Tweaks
 ----------------------------------------------------------------------------- */
+
 @media (max-width: 640px) {
   .nav-title {
     font-size: 1.5rem;

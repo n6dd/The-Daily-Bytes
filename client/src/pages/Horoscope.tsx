@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Horoscope.css';
 
-// ==========================
-// Types
-// ==========================
+// ==============================
+// TODO: Type Definitions
+// ==============================
+
 interface HoroscopeData {
   text: string;
   luckyNumber: number;
@@ -14,10 +15,12 @@ interface HoroscopeCollection {
   [key: string]: HoroscopeData;
 }
 
-// ==========================
-// Component: Horoscope
-// ==========================
+// ==============================
+// TODO: Horoscope Component
+// ==============================
+
 const Horoscope: React.FC = () => {
+  // NOTE: State for selected sign, date, and data
   const [selectedSign, setSelectedSign] = useState('aries');
   const [currentDate, setCurrentDate] = useState('');
   const [horoscope, setHoroscope] = useState<HoroscopeData>({
@@ -26,9 +29,9 @@ const Horoscope: React.FC = () => {
     mood: ''
   });
 
-  // ==========================
-  // Horoscope Data (Static)
-  // ==========================
+  // ==============================
+  // TODO: Static Horoscope Data
+  // ==============================
   const horoscopes: HoroscopeCollection = {
     aries: { text: "Today is a day for new beginnings...", luckyNumber: 7, mood: "Adventurous" },
     taurus: { text: "Financial matters may require your attention...", luckyNumber: 4, mood: "Determined" },
@@ -44,9 +47,9 @@ const Horoscope: React.FC = () => {
     pisces: { text: "Your compassionate nature shines today...", luckyNumber: 12, mood: "Dreamy" }
   };
 
-  // ==========================
-  // Lifecycle
-  // ==========================
+  // ==============================
+  // TODO: Load current date + initial data
+  // ==============================
   useEffect(() => {
     const now = new Date();
     const options: Intl.DateTimeFormatOptions = {
@@ -59,9 +62,10 @@ const Horoscope: React.FC = () => {
     updateHoroscope(selectedSign);
   }, [selectedSign]);
 
-  // ==========================
-  // Helpers
-  // ==========================
+  // ==============================
+  // TODO: Helper Functions
+  // ==============================
+
   const updateHoroscope = (sign: string) => {
     setHoroscope(horoscopes[sign]);
   };
@@ -75,17 +79,20 @@ const Horoscope: React.FC = () => {
     return select?.options[select.selectedIndex]?.text.split(' ')[0] || '';
   };
 
-  // ==========================
-  // Render
-  // ==========================
+  // ==============================
+  // TODO: Render Component UI
+  // ==============================
+
   return (
     <div className="horoscope-container">
       <div className="horoscope-section">
+        {/* Header */}
         <div className="horoscope-header">
           <h2>Daily Horoscope</h2>
           <div className="date-display">{currentDate}</div>
         </div>
 
+        {/* Zodiac Selector */}
         <select
           className="zodiac-selector"
           id="zodiac-sign"
@@ -106,10 +113,12 @@ const Horoscope: React.FC = () => {
           <option value="pisces">Pisces (Feb 19 - Mar 20)</option>
         </select>
 
+        {/* Horoscope Content */}
         <div className="horoscope-content">
           <h3 className="horoscope-title">{getSignName()}</h3>
           <p className="horoscope-text">{horoscope.text}</p>
 
+          {/* Lucky Number + Mood */}
           <div className="horoscope-details">
             <div className="lucky-number">
               Lucky Number<br />
@@ -127,3 +136,4 @@ const Horoscope: React.FC = () => {
 };
 
 export default Horoscope;
+// NOTE Fully themed zodiac reading page with static data & selector

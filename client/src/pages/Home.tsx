@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
-import "./Home.css"; // Optional: Add styling if needed
+import "./Home.css"; // TODO: Page-specific styling
+
+// ==============================
+// TODO: Home Landing Component
+// ==============================
 
 const Home = () => {
   return (
     <div className="home-container">
+      {/* TODO: Hero Header */}
       <header className="home-header">
         <h1>
           Welcome to <span className="highlight">The Daily Bytes</span>
@@ -18,6 +23,7 @@ const Home = () => {
         </Link>
       </header>
 
+      {/* TODO: Featured Article Links */}
       <section className="featured-content">
         <h2>Featured Articles</h2>
         <ul>
@@ -54,6 +60,7 @@ const Home = () => {
         </ul>
       </section>
 
+      {/* TODO: Footer Section */}
       <footer className="home-footer">
         <p>Stay connected:</p>
         <p>
@@ -71,3 +78,4 @@ const Home = () => {
 };
 
 export default Home;
+// NOTE Main landing page with featured content and social links

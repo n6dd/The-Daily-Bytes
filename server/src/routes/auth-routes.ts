@@ -1,62 +1,65 @@
 import { Router, Request, Response } from 'express';
-import { User } from '../models/user.js';  // Import the User model
-import jwt from 'jsonwebtoken';  // Import the JSON Web Token library
-import bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
+import { User } from '../models/user.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
-// Login function to authenticate a user
+const router = Router(); // TODO: Create auth router
+
+// ==============================
+// TODO: POST /auth/login → Authenticate user
+// ==============================
 export const login = async (req: Request, res: Response) => {
-  const { username, password } = req.body;  // Extract username and password from request body
+  const { username, password } = req.body;
 
-  // Find the user in the database by username
   try {
-  const user = await User.findOne({
-    where: { username },
-  });
+    // NOTE Attempt to find user by username
+    const user = await User.findOne({ where: { username } });
 
-  // If user is not found, send an authentication failed response
-  if (!user) {
-    return res.status(401).json({ message: 'Authentication failed' });
-  }
+    if (!user) {
+      return res.status(401).json({ message: 'Authentication failed' });
+    }
 
-  // Compare the provided password with the stored hashed password
-  const passwordIsValid = await bcrypt.compare(password, user.password);
-  // If password is invalid, send an authentication failed response
-  if (!passwordIsValid) {
-    return res.status(401).json({ message: 'Authentication failed' });
-  }
+    // TODO: Compare submitted password to hashed one
+    const passwordIsValid = await bcrypt.compare(password, user.password);
 
-  // Get the secret key from environment variables
-  const secretKey = process.env.JWT_SECRET_KEY || '';
+    if (!passwordIsValid) {
+      return res.status(401).json({ message: 'Authentication failed' });
+    }
 
-  // Generate a JWT token for the authenticated user
-  const token = jwt.sign({ username }, secretKey, { expiresIn: '12h' });
-  return res.json({ token });  // Send the token as a JSON response
-  
+    const secretKey = process.env.JWT_SECRET_KEY || '';
+
+    // NOTE Sign token with username and 12h expiry
+    const token = jwt.sign({ username }, secretKey, { expiresIn: '12h' });
+
+    return res.json({ token });
   } catch (error) {
-    // Handle any unexpected errors during the login process
     console.error('Error during login:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
 
+// ==============================
+// TODO: POST /auth/register → Register user and return token
+// ==============================
 export const signUp = async (req: Request, res: Response) => {
+  try {
+    const newUser = await User.create(req.body);
 
-  const newUser = await User.create(req.body);
+    const secretKey = process.env.JWT_SECRET_KEY || '';
+    const token = jwt.sign({ username: newUser.username }, secretKey, { expiresIn: '12h' });
 
-  // Get the secret key from environment variables
-  const secretKey = process.env.JWT_SECRET_KEY || '';
-
-  // Generate a JWT token for the authenticated user
-  const token = jwt.sign({ username: newUser.username }, secretKey, { expiresIn: '12h' });
-  return res.json({ token });  // Send the token as a JSON response
+    return res.json({ token });
+  } catch (error: any) {
+    console.error('Error during registration:', error);
+    return res.status(400).json({ message: error.message || 'Registration failed' });
+  }
 };
 
+// ==============================
+// Route Definitions
+// ==============================
+router.post('/login', login);       // NOTE Handles user login
+router.post('/register', signUp);   // NOTE Handles user signup
 
-// Create a new router instance
-const router = Router();
-
-// POST /login - Login a user
-router.post('/login', login);  // Define the login route
-router.post('/register', signUp);
-
-export default router;  // Export the router instance
+export default router;
+// NOTE Mounted at /api/auth in server.ts or api index

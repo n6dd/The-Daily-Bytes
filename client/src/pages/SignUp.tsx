@@ -1,82 +1,94 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 
-import Auth from '../utils/auth';  // Import the Auth utility for managing authentication state
-import { signUp } from "../api/authAPI";  // Import the signUp function from the API
-import { UserLogin } from "../interfaces/UserLogin";  // Import the interface for UserSignUp
+import Auth from '../utils/auth';               // NOTE: Handles storing token in localStorage
+import { signUp } from "../api/authAPI";        // NOTE: Calls backend signup API
+import { UserLogin } from "../interfaces/UserLogin";  // NOTE: Type for signup form fields
+
+// ==============================
+// TODO: SignUp Component
+// ==============================
 
 const SignUp = () => {
-  // State to manage the signUp form data
+  // TODO: Track form values for email, username, password
   const [signUpData, setSignUpData] = useState<UserLogin>({
     username: '',
     password: '',
     email: ''
   });
 
-  // Handle changes in the input fields
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  // TODO: Handle field input updates
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSignUpData({
-      ...signUpData,
+    setSignUpData((prev) => ({
+      ...prev,
       [name]: value
-    });
+    }));
   };
 
-  // Handle form submission for signUp
+  // TODO: Submit signup form to API
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      // Call the signUp API endpoint with signUpData
-      const data = await signUp(signUpData);
-      // If signUp is successful, call Auth.signUp to store the token in localStorage
-      Auth.login(data.token);
+      const data = await signUp(signUpData);  // NOTE: Sends POST to /auth/register
+      Auth.login(data.token);                // NOTE: Stores token and sets auth state
     } catch (err) {
-      console.error('Failed to signUp', err);  // Log any errors that occur during signUp
+      console.error('Failed to sign up', err);
     }
   };
+
+  // ==============================
+  // TODO: Render SignUp Form
+  // ==============================
 
   return (
     <div className='form-container'>
       <form className='form signUp-form' onSubmit={handleSubmit}>
-        <h1>SignUp</h1>
-        {/* Username input field */}
+        <h1>Sign Up</h1>
+
+        {/* Email Input */}
         <div className="form-group">
           <label>Email</label>
           <input 
             className="form-input"
             type='email'
             name='email'
-            value={signUpData.email || ''}
+            value={signUpData.email}
             onChange={handleChange}
           />
         </div>
+
+        {/* Username Input */}
         <div className="form-group">
           <label>Username</label>
           <input 
             className="form-input"
             type='text'
             name='username'
-            value={signUpData.username || ''}
+            value={signUpData.username}
             onChange={handleChange}
           />
         </div>
-        {/* Password input field */}
+
+        {/* Password Input */}
         <div className="form-group">
           <label>Password</label>
           <input 
             className="form-input"
             type='password'
             name='password'
-            value={signUpData.password || ''}
+            value={signUpData.password}
             onChange={handleChange}
           />
         </div>
-        {/* Submit button for the signUp form */}
+
+        {/* Submit Button */}
         <div className="form-group">
-          <button className="btn btn-primary" type='submit'>SignUp</button>
+          <button className="btn btn-primary" type='submit'>Sign Up</button>
         </div>
       </form>
     </div>
-  )
+  );
 };
 
 export default SignUp;
+// NOTE: Registration form → API → token login on success

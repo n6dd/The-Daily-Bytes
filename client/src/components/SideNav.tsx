@@ -4,19 +4,28 @@ import { FaBars } from "react-icons/fa";
 import { MdSportsFootball, MdHealthAndSafety } from "react-icons/md";
 import { HiServerStack } from "react-icons/hi2";
 import { BsFillPlayBtnFill, BsMoonStarsFill } from "react-icons/bs";
+
 import "./SideNav.css";
 import auth from "../utils/auth";
 
+// ==============================
+// TODO: SideNav Component
+// ==============================
+
 const SideNav = () => {
+  // TODO: Track sidebar open/close state
   const [isOpen, setIsOpen] = useState(false);
+
+  // TODO: Track current theme (updated dynamically)
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const saved = localStorage.getItem("theme");
     return saved === "dark" ? "dark" : "light";
   });
 
+  // TODO: Toggle sidebar open/closed
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  // Use a MutationObserver to watch for theme changes on the body element.
+  // NOTE Observe changes to body class to sync theme toggle
   useEffect(() => {
     const observer = new MutationObserver(() => {
       setTheme(document.body.classList.contains("dark") ? "dark" : "light");
@@ -25,14 +34,17 @@ const SideNav = () => {
     return () => observer.disconnect();
   }, []);
 
+  // NOTE Hide sidebar if not logged in
   if (!auth.loggedIn()) return null;
 
   return (
     <div className={`sidenav ${isOpen ? "open" : "closed"} ${theme}`}>
+      {/* TODO: Sidebar toggle button */}
       <button className="sidenav-toggle" onClick={toggleSidebar}>
         <FaBars className="toggle-icon" />
       </button>
 
+      {/* TODO: Navigation links (icons + optional labels) */}
       <div className="sidenav-links">
         <Link to="/Sports" className="sidenav-link">
           <MdSportsFootball className="sidenav-icon" />
@@ -64,3 +76,4 @@ const SideNav = () => {
 };
 
 export default SideNav;
+// NOTE Visible only when user is authenticated

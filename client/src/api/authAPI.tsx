@@ -1,9 +1,11 @@
-import { UserLogin } from "../interfaces/UserLogin";  // Import the UserLogin interface for typing userInfo
+import { UserLogin } from "../interfaces/UserLogin";  
+// TODO: Import user interface for login data shape
+// NOTE This enforces type safety for `userInfo` passed into auth requests
 
-// Function to send a POST request to the '/auth/login' endpoint with user login information
+// TODO: Handle user login via POST request to /auth/login
 const login = async (userInfo: UserLogin) => {
   try {
-    // Send a POST request to '/auth/login' with user login information in JSON format
+    // NOTE Use `fetch` with method 'POST' and proper headers for JSON
     const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
@@ -12,25 +14,25 @@ const login = async (userInfo: UserLogin) => {
       body: JSON.stringify(userInfo)
     });
 
-    // Throw error if response status is not OK (200-299)
+    // NOTE Check for non-OK HTTP response status (not 2xx)
     if (!response.ok) {
-      const errorData = await response.json(); // Parse error response as JSON
-      throw new Error(`Error: ${errorData.message}`); // Throw a detailed error message    
+      const errorData = await response.json();
+      throw new Error(`Error: ${errorData.message}`);
     }
 
-    // Parse the response body as JSON
+    // NOTE Parse JSON from response and return to caller
     const data = await response.json();
-
-    return data;  // Return the data received from the server
+    return data;
   } catch (err) {
-    console.log('Error from user login: ', err);  // Log any errors that occur during fetch
-    return Promise.reject('Could not fetch user info');  // Return a rejected promise with an error message
+    // TODO: Improve error logging if needed
+    console.log('Error from user login: ', err);
+    return Promise.reject('Could not fetch user info');
   }
 }
 
+// TODO: Handle user registration via POST request to /auth/register
 const signUp = async (userInfo: UserLogin) => {
   try {
-    // Send a POST request to '/auth/login' with user login information in JSON format
     const response = await fetch('/auth/register', {
       method: 'POST',
       headers: {
@@ -39,20 +41,19 @@ const signUp = async (userInfo: UserLogin) => {
       body: JSON.stringify(userInfo)
     });
 
-    // Throw error if response status is not OK (200-299)
     if (!response.ok) {
-      const errorData = await response.json(); // Parse error response as JSON
-      throw new Error(`Error: ${errorData.message}`); // Throw a detailed error message    
+      const errorData = await response.json();
+      throw new Error(`Error: ${errorData.message}`);
     }
 
-    // Parse the response body as JSON
     const data = await response.json();
-
-    return data;  // Return the data received from the server
+    return data;
   } catch (err) {
-    console.log('Error from user login: ', err);  // Log any errors that occur during fetch
-    return Promise.reject('Could not fetch user info');  // Return a rejected promise with an error message
+    // TODO: Standardize error messages and consider user-facing alert
+    console.log('Error from user login: ', err);
+    return Promise.reject('Could not fetch user info');
   }
 }
 
-export { login, signUp };  // Export the login function to be used elsewhere in the application
+export { login, signUp };  
+// NOTE These functions will be used in user login/signup forms or hooks
