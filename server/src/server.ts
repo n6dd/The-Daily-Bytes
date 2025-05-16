@@ -14,7 +14,7 @@ import express from 'express';
 
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
-import { mediaNewsRouter } from './routes/api/mainNews.js'; // ✅ UPDATED
+import { mainNewsRouter } from './routes/api/mainNews.js'; // ✅ FIXED: Correct export name
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -37,7 +37,7 @@ app.use(express.static('../client/dist'));
 // ==============================
 // TODO: Custom Routes
 // ==============================
-app.use('/api/media-news', mediaNewsRouter); // ✅ New Mediastack route
+app.use('/api/news', mainNewsRouter); // ✅ FIXED to match export
 app.use(routes);
 
 // ==============================

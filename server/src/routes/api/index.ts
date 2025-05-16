@@ -1,26 +1,23 @@
 import { Router } from 'express';
 import { userRouter } from './user-routes.js';
-import { mediaNewsRouter } from './mainNews.js';       // ✅ Mediastack route
-import { horoscopeRouter } from './horoscope.js';       // ✅ Aztro route
+import { mainNewsRouter } from './mainNews.js';        // ✅ Main News (Mediastack)
+import { horoscopeRouter } from './horoscope.js';      // ✅ Horoscope (Aztro)
 
-// ==============================
-// Create API Router
-// ==============================
 const router = Router();
 
 // ==============================
 // User Routes
 // ==============================
-router.use('/users', userRouter);                       // e.g. /api/users
+router.use('/users', userRouter);                      // e.g. /api/users
 
 // ==============================
 // Mediastack News Route
 // ==============================
-router.use('/media-news', mediaNewsRouter);             // e.g. /api/media-news/:category?
+router.use('/news', mainNewsRouter);                   // e.g. /api/news/:category?
 
 // ==============================
-// Horoscope Route (Aztro)
+// Horoscope Route
 // ==============================
-router.use('/horoscope', horoscopeRouter);              // e.g. /api/horoscope/:sign
+router.use('/horoscope', horoscopeRouter);             // e.g. /api/horoscope/:sign
 
 export default router;
