@@ -52,7 +52,7 @@ const SignUp = () => {
             className="form-input"
             type='email'
             name='email'
-            value={signUpData.email}
+            value={signUpData.email ?? ''}  // ✅ Null-safe
             onChange={handleChange}
           />
         </div>
@@ -64,7 +64,7 @@ const SignUp = () => {
             className="form-input"
             type='text'
             name='username'
-            value={signUpData.username}
+            value={signUpData.username ?? ''}  // ✅ Null-safe
             onChange={handleChange}
           />
         </div>
@@ -76,7 +76,7 @@ const SignUp = () => {
             className="form-input"
             type='password'
             name='password'
-            value={signUpData.password}
+            value={signUpData.password ?? ''}  // ✅ Null-safe
             onChange={handleChange}
           />
         </div>
