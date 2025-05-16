@@ -1,13 +1,19 @@
-/* Default body styles */
+/* =============================================================================
+   TODO: Global Body Styles
+============================================================================= */
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f9fafb;
   color: #1e293b;
   margin: 0;
-  padding-top: 80px; /* Ensure content doesn't overlap the navbar */
+  padding-top: 80px; /* NOTE: Prevent overlap with fixed navbar */
 }
 
-/* Container for the content */
+/* =============================================================================
+   TODO: Main Page Container
+============================================================================= */
+
 .container {
   max-width: 700px;
   margin: 0 auto;
@@ -15,19 +21,21 @@ body {
   background: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  margin-top: 20px; /* Space for the fixed navbar */
+  margin-top: 20px; /* NOTE: Adds space below navbar */
 }
 
-/* Heading styles */
+/* =============================================================================
+   TODO: Heading + Input
+============================================================================= */
+
 h1 {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-/* Input field styles */
 input {
-  width: 400px; /* Fixed width for the input field */
+  width: 400px;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -35,10 +43,13 @@ input {
   margin-top: 20px;
   display: block;
   margin-left: auto;
-  margin-right: auto; /* Centering the input field */
+  margin-right: auto;
 }
 
-/* Summary section styles */
+/* =============================================================================
+   TODO: Summary / Output Section
+============================================================================= */
+
 .summary {
   background: #f1f5f9;
   padding: 15px;
@@ -57,59 +68,68 @@ input {
   text-decoration: underline;
 }
 
-/* Loading state text styling */
+/* =============================================================================
+   TODO: Loading State Text
+============================================================================= */
+
 .loading {
   text-align: center;
   font-size: 18px;
   color: #555;
 }
 
-/* Mobile responsiveness */
+/* =============================================================================
+   TODO: Responsive Adjustments (Mobile)
+============================================================================= */
+
 @media (max-width: 640px) {
   input {
-    width: 100%; /* Make the input field take up full width on smaller screens */
+    width: 100%;
     padding: 10px;
   }
 
   .container {
-    padding: 15px; /* Reduced padding for mobile */
+    padding: 15px;
   }
 
   h1 {
-    font-size: 20px; /* Adjust the font size for smaller screens */
+    font-size: 20px;
   }
 }
 
-/* Dark Mode for this page */
+/* =============================================================================
+   TODO: Dark Mode Overrides
+============================================================================= */
+
 body.dark {
-  background-color: #1e293b; /* Dark background for the entire page */
-  color: #f9fafb; /* Light text color */
+  background-color: #1e293b;
+  color: #f9fafb;
 }
 
 body.dark .container {
-  background: #1e293b; /* Dark container background */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for the container */
+  background: #1e293b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 body.dark h1 {
-  color: #f9fafb; /* Light color for headings */
+  color: #f9fafb;
 }
 
 body.dark input {
-  background-color: #2d3a47; /* Dark input background */
-  border: 1px solid #4b5563; /* Dark border for the input */
-  color: #f9fafb; /* Light text in the input */
+  background-color: #2d3a47;
+  border: 1px solid #4b5563;
+  color: #f9fafb;
 }
 
 body.dark .summary {
-  background: #374151; /* Dark background for summary */
-  color: #f9fafb; /* Light text for summary */
+  background: #374151;
+  color: #f9fafb;
 }
 
 body.dark .summary a {
-  color: #60a5fa; /* Dark mode highlight color for links */
+  color: #60a5fa;
 }
 
 body.dark .loading {
-  color: #f9fafb; /* Light text for loading state */
+  color: #f9fafb;
 }

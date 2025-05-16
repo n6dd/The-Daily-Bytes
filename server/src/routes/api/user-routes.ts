@@ -4,11 +4,13 @@ import { User } from '../../models/index.js';
 
 const router = express.Router();
 
-// GET /users - Get all users
+// ==============================
+// TODO: GET /users → Fetch all users
+// ==============================
 router.get('/', async (_req: Request, res: Response) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] }, // NOTE Exclude sensitive data
     });
     res.json(users);
   } catch (error: any) {
@@ -16,12 +18,14 @@ router.get('/', async (_req: Request, res: Response) => {
   }
 });
 
-// GET /users/:id - Get a user by id
+// ==============================
+// TODO: GET /users/:id → Fetch user by ID
+// ==============================
 router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const user = await User.findByPk(id, {
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
     });
     if (user) {
       res.json(user);
@@ -33,7 +37,9 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// POST /users - Create a new user
+// ==============================
+// TODO: POST /users → Create new user
+// ==============================
 router.post('/', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   try {
@@ -44,7 +50,9 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// PUT /users/:id - Update a user by id
+// ==============================
+// TODO: PUT /users/:id → Update user by ID
+// ==============================
 router.put('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   const { username, password } = req.body;
@@ -52,7 +60,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     const user = await User.findByPk(id);
     if (user) {
       user.username = username;
-      user.password = password;
+      user.password = password; // NOTE Will be hashed via model hook
       await user.save();
       res.json(user);
     } else {
@@ -63,7 +71,9 @@ router.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// DELETE /users/:id - Delete a user by id
+// ==============================
+// TODO: DELETE /users/:id → Delete user by ID
+// ==============================
 router.delete('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
@@ -80,3 +90,4 @@ router.delete('/:id', async (req: Request, res: Response) => {
 });
 
 export { router as userRouter };
+// NOTE Mounted at /api/users via api/index.ts

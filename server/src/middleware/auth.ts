@@ -1,36 +1,36 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Define the interface for the JWT payload
+// TODO: Define interface for decoded JWT payload
 interface JwtPayload {
   username: string;
 }
 
-// Middleware function to authenticate JWT token
+// TODO: Middleware to verify JWT and attach decoded user to request
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
-  // Get the authorization header from the request
   const authHeader = req.headers.authorization;
 
-  // Check if the authorization header is present
+  // NOTE Expect Authorization header in format: Bearer <token>
   if (authHeader) {
-    // Extract the token from the authorization header
     const token = authHeader.split(' ')[1];
-    console.log("Token: ", token);
-    // Get the secret key from the environment variables
+    console.log("Token: ", token); // NOTE: Optional — remove or mask in production
+
     const secretKey = process.env.JWT_SECRET_KEY || '';
-    console.log("Secret Key: ", secretKey);
-    // Verify the JWT token
+    console.log("Secret Key: ", secretKey); // NOTE: Optional — remove in production
+
+    // TODO: Validate token using secret
     jwt.verify(token, secretKey, (err, user) => {
       if (err) {
         console.log("Auth Error: ", err);
-        return res.sendStatus(403); // Send forbidden status if the token is invalid
+        return res.sendStatus(403); // NOTE Token invalid → Forbidden
       }
 
-      // Attach the user information to the request object
+      // NOTE Attach user info from token to req.user
       req.user = user as JwtPayload;
-      return next(); // Call the next middleware function
+      return next();
     });
   } else {
-    res.sendStatus(401); // Send unauthorized status if no authorization header is present
+    // NOTE No token provided → Unauthorized
+    res.sendStatus(401);
   }
 };

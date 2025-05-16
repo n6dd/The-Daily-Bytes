@@ -5,7 +5,7 @@ import auth from "../utils/auth";
 import "./Navbar.css";
 
 // =============================================================================
-// Theme Toggle Component
+// TODO: Theme Toggle Component (Used inside Navbar)
 // =============================================================================
 
 interface SliderToggleProps {
@@ -38,26 +38,33 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
 };
 
 // =============================================================================
-// Navbar Component
+// TODO: Main Navbar Component
 // =============================================================================
 
 const Navbar = () => {
   const location = useLocation();
+
+  // TODO: Track if user is logged in
   const [loginCheck, setLoginCheck] = useState(false);
+
+  // TODO: Handle theme state (persisted in localStorage)
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const saved = localStorage.getItem("theme");
     return saved === "dark" ? "dark" : "light";
   });
 
+  // NOTE Check login state on first load
   useEffect(() => {
     if (auth.loggedIn()) setLoginCheck(true);
   }, []);
 
+  // NOTE Apply theme to body and store preference
   useEffect(() => {
     document.body.className = theme === "dark" ? "dark" : "";
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // TODO: Define navigation tabs
   const tabs = [
     { label: "Home", to: "/" },
     { label: "DailyByte", to: "/dailybyte" },
@@ -70,6 +77,7 @@ const Navbar = () => {
       <div className="navbar-inner">
         <h1 className="nav-title">THE DAILY BYTES</h1>
 
+        {/* TODO: Render nav tabs with active link highlighting */}
         <nav className="nav-tabs">
           {tabs.map((tab) => (
             <Link
@@ -82,6 +90,7 @@ const Navbar = () => {
           ))}
         </nav>
 
+        {/* TODO: Login/logout buttons + theme toggle */}
         <div className="nav-actions">
           {loginCheck ? (
             <button
@@ -112,3 +121,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+// NOTE Used globally across all views for navigation and theming
