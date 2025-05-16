@@ -121,4 +121,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
-// NOTE Used globally across all views for navigation and theming
+// NOTE Used globally across all views for navigation and theming...
