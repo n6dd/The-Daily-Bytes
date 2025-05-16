@@ -91,4 +91,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
-// NOTE: Registration form → API → token login on success
+// NOTE: Registration form → API → token login on success...
