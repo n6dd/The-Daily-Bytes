@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Horoscope.css';
 
 interface HoroscopeData {
-  text: string;
+  description: string;
   lucky_number: string;
   mood: string;
 }
@@ -11,37 +11,33 @@ const Horoscope: React.FC = () => {
   const [selectedSign, setSelectedSign] = useState('aries');
   const [currentDate, setCurrentDate] = useState('');
   const [horoscope, setHoroscope] = useState<HoroscopeData>({
-    text: '',
+    description: '',
     lucky_number: '',
     mood: ''
   });
 
-  useEffect(() => {
-    const now = new Date();
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    };
-    setCurrentDate(now.toLocaleDateString('en-US', options));
-
-    fetchHoroscope(selectedSign);
-  }, [selectedSign]);
-
-  const fetchHoroscope = async (sign: string) => {
-    try {
-      const res = await fetch(`/api/horoscope/${sign}`);
-      const data = await res.json();
-      setHoroscope({
-        text: data.description,
-        lucky_number: data.lucky_number,
-        mood: data.mood
-      });
-    } catch (err) {
-      console.error("Failed to fetch horoscope:", err);
-    }
+useEffect(() => {
+  const now = new Date();
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   };
+  setCurrentDate(now.toLocaleDateString('en-US', options));
+
+  fetch(`/api/horoscope?zodiacSign=${selectedSign}`)
+    .then(res => res.json())
+    .then(data => {
+      const d = data?.data || data; // ✅ fallback for RapidAPI response shape
+      setHoroscope({
+        description: d.horoscope || 'No description',
+        lucky_number: d.lucky_number || 'N/A',
+        mood: d.mood || 'Unknown'
+      });
+    })
+    .catch(err => console.error("Horoscope fetch error:", err));
+}, [selectedSign]);
 
   const handleSignChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSign(e.target.value);
@@ -82,7 +78,7 @@ const Horoscope: React.FC = () => {
 
         <div className="horoscope-content">
           <h3 className="horoscope-title">{getSignName()}</h3>
-          <p className="horoscope-text">{horoscope.text}</p>
+          <p className="horoscope-text">{horoscope.description}</p>
 
           <div className="horoscope-details">
             <div className="lucky-number">

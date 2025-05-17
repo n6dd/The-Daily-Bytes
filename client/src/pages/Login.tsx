@@ -1,24 +1,17 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 
-import Auth from '../utils/auth';                   // NOTE: Handles localStorage auth state
-import { login } from "../api/authAPI";             // NOTE: Login API call
-import { UserLogin } from "../interfaces/UserLogin"; // NOTE: Login form input interface
-
-// ==============================
-// TODO: Login Component
-// ==============================
+import Auth from '../utils/auth';                              // ✅ Auth utility
+import { login } from "../api/authAPI";                        // ✅ Points to client/src/api/authAPI.tsx
+import { UserLogin } from "../interfaces/UserLogin";           // ✅ Points to client/src/interfaces/UserLogin.tsx
 
 const Login = () => {
-  // TODO: Track form input values
   const [loginData, setLoginData] = useState<UserLogin>({
     username: '',
     password: ''
   });
 
-  // TODO: Track loading state
   const [loading, setLoading] = useState(false);
 
-  // TODO: Update form values
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoginData((prev) => ({
@@ -27,14 +20,17 @@ const Login = () => {
     }));
   };
 
-  // TODO: Submit login form
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const data = await login(loginData);
-      Auth.login(data.token);  // NOTE: Save JWT and redirect
+      const data = await login(loginData); // Sends to /api/auth/login
+      if (data?.token) {
+        Auth.login(data.token);            // Save token in localStorage
+      } else {
+        console.error("No token received.");
+      }
     } catch (err) {
       console.error('Failed to login', err);
     } finally {
@@ -42,40 +38,35 @@ const Login = () => {
     }
   };
 
-  // ==============================
-  // TODO: Render Login UI
-  // ==============================
-
   return (
     <div className='form-container'>
       <form className='form login-form' onSubmit={handleSubmit}>
         <h1>Login</h1>
 
-        {/* Username Input */}
         <div className="form-group">
           <label>Username</label>
           <input 
             className="form-input"
             type='text'
             name='username'
-            value={loginData.username ?? ''}  // ✅ Null-safe value
+            value={loginData.username ?? ''}
             onChange={handleChange}
+            required
           />
         </div>
 
-        {/* Password Input */}
         <div className="form-group">
           <label>Password</label>
           <input 
             className="form-input"
             type='password'
             name='password'
-            value={loginData.password ?? ''}  // ✅ Null-safe value
+            value={loginData.password ?? ''}
             onChange={handleChange}
+            required
           />
         </div>
 
-        {/* Submit Button */}
         <div className="form-group">
           <button
             type="submit"
@@ -107,4 +98,3 @@ const Login = () => {
 };
 
 export default Login;
-// NOTE Displays login form, handles API login, sets auth token

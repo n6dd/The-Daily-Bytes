@@ -1,37 +1,42 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
 
-// ==============================
-// GET /api/horoscope/:sign
-// ==============================
-
-router.get('/:sign', async (req: Request, res: Response) => {
-  const { sign } = req.params;
+router.get('/', async (req, res) => {
+  let { zodiacSign } = req.query;
+  if(!zodiacSign) {
+    zodiacSign = "vergo"
+  }
 
   try {
-    // Aztro requires a POST with sign & day in the URL
-    const response = await axios.post(
-      `https://aztro.sameerkumar.website/?sign=${sign}&day=today`,
-      null,
+    const response = await axios.get(
+      `https://api.api-ninjas.com/v1/horoscope?zodiac=${zodiacSign}`,
       {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'X-Api-Key': process.env.API_NINJAS_KEY || '',
+        },
       }
     );
-
-    const { description, lucky_number, mood } = response.data;
-
-    // Return simplified horoscope payload
-    res.status(200).json({
-      text: description,
-      luckyNumber: parseInt(lucky_number),
-      mood,
-    });
-  } catch (error: any) {
-    console.error(`Horoscope fetch failed for ${sign}:`, error.message);
-    res.status(500).json({ message: 'Failed to retrieve horoscope.' });
+   /* const response = await axios.get(
+      `https://${process.env.RAPIDAPI_HOST}/api/Detailed-Horoscope`,
+      {
+        params: { zodiacSign },
+        headers: {
+          'x-rapidapi-host': process.env.RAPIDAPI_HOST || '',
+          'x-rapidapi-key': process.env.RAPIDAPI_KEY || '',
+        },
+      }
+    );*/
+    console.log("Data: ", response.data)
+    res.json(response.data);
+  } catch (err: any) {
+    console.log("Err: ", err);
+    console.error('Horoscope API error:', err?.response?.data || err.message || err);
+    res.status(500).json({ error: 'Failed to fetch horoscope' });
   }
 });
 
-export { router as horoscopeRouter };
+export default router;

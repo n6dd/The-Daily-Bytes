@@ -1,59 +1,24 @@
-// ==============================
-// TODO: Load environment variables
-// ==============================
-const forceDatabaseRefresh = false;
-
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
-// ==============================
-// TODO: Import Core Libraries
-// ==============================
-import express from 'express';
-// import cors from 'cors'; // Optional if needed for external clients
-
-import sequelize from './config/connection.js';
-import routes from './routes/index.js';
-import { mainNewsRouter } from './routes/api/mainNews.js'; // ✅ FIXED: Correct export name
+import express from "express";
+import sequelize from "./config/connection.js";
+import apiRoutes from "./routes/api/index.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ==============================
-// TODO: Middleware
-// ==============================
-
-// Optional: Enable CORS if needed
-/*
-app.use(cors({
-  origin: 'https://the-daily-bytes-o4jo.onrender.com',
-  credentials: true
-}));
-*/
-
 app.use(express.json());
-app.use(express.static('../client/dist'));
+app.use(express.static("../client/dist"));
 
-// ==============================
-// TODO: Custom Routes
-// ==============================
-app.use('/api/news', mainNewsRouter); // ✅ FIXED to match export
-app.use(routes);
+app.use("/api", apiRoutes);
 
-// ==============================
-// TODO: 404 Fallback
-// ==============================
 app.use((_req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+  res.status(404).json({ error: "Route not found" });
 });
 
-// ==============================
-// TODO: Start Server After Sync
-// ==============================
-sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
+sequelize.sync().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`✅ Server running at http://localhost:${PORT}`);
   });
-}).catch((err) => {
-  console.error('Failed to start server:', err);
 });

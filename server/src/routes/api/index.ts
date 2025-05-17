@@ -1,23 +1,15 @@
+// server/src/routes/api/index.ts
 import { Router } from 'express';
-import { userRouter } from './user-routes.js';
-import { mainNewsRouter } from './mainNews.js';        // ✅ Main News (Mediastack)
-import { horoscopeRouter } from './horoscope.js';      // ✅ Horoscope (Aztro)
+import horoscopeRoutes from './horoscope.js';
+import mainNewsRoutes from './mainNews.js';
+import userRoutes from './user-routes.js';
+import authRoutes from '../auth-routes.js';
 
 const router = Router();
 
-// ==============================
-// User Routes
-// ==============================
-router.use('/users', userRouter);                      // e.g. /api/users
-
-// ==============================
-// Mediastack News Route
-// ==============================
-router.use('/news', mainNewsRouter);                   // e.g. /api/news/:category?
-
-// ==============================
-// Horoscope Route
-// ==============================
-router.use('/horoscope', horoscopeRouter);             // e.g. /api/horoscope/:sign
+router.use('/horoscope', horoscopeRoutes);
+router.use('/news',      mainNewsRoutes);
+router.use('/users',     userRoutes);
+router.use('/auth',      authRoutes);
 
 export default router;

@@ -9,8 +9,8 @@ const retrieveNews = async (category?: string, page: number = 1, pageSize: numbe
   try {
     // NOTE: Build API URL for specific category or general news
     const url = category
-      ? `/api/media-news/${category}?page=${page}&pageSize=${pageSize}`
-      : `/api/media-news?page=${page}&pageSize=${pageSize}`;
+      ? `/api/news/${category}?page=${page}&pageSize=${pageSize}`
+      : `/api/news?page=${page}&pageSize=${pageSize}`;
 
     const response = await fetch(url, {
       headers: {
