@@ -4,7 +4,7 @@ import NewsComponent from "../components/NewsComponent";
 
 const Technology = () => {
   return (
-   <NewsComponent category="technology" />
+   <NewsComponent category="Technology" />
   )
 }
 

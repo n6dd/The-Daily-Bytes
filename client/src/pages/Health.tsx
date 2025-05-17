@@ -4,7 +4,7 @@ import NewsComponent from "../components/NewsComponent";
 // NOTE: Mediastack requires lowercase category names
 
 const Health = () => {
-  return <NewsComponent category="health" />;
+  return <NewsComponent category="Health" />;
 };
 
 export default Health;

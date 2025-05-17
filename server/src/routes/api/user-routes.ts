@@ -1,3 +1,4 @@
+// server/src/routes/api/user-routes.ts
 import express from 'express';
 import type { Request, Response } from 'express';
 import { User } from '../../models/index.js';
@@ -90,5 +91,5 @@ router.delete('/:id', async (req: Request, res: Response) => {
   }
 });
 
-export { router as userRouter };
+export default router;  
 // NOTE Mounted at /api/users via api/index.ts

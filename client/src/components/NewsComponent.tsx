@@ -19,7 +19,7 @@ interface Article {
   title: string;
   description: string;
   url: string;
-  urlToImage: string | null;
+  image: string | null;
   publishedAt: string;
   content: string | null;
 }
@@ -40,7 +40,7 @@ const NewsComponent = ({ category }: { category?: string }) => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const data = await retrieveNews(category, page, articlesPerPage);
+        const data = await retrieveNews(category?.toLowerCase(), page, articlesPerPage);
         setArticles(data.articles);
         setTotalArticles(data.totalResults);
       } catch (error) {
@@ -71,9 +71,9 @@ const NewsComponent = ({ category }: { category?: string }) => {
         <div className="news-grid">
           {articles.map((article, index) => (
             <div key={index} className="news-card">
-              {article.urlToImage && (
+              {article.image && (
                 <img
-                  src={article.urlToImage}
+                  src={article.image}
                   alt={article.title}
                   className="news-image"
                 />
